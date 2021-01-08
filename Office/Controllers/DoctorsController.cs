@@ -21,21 +21,29 @@ namespace Office.Controllers
     }
     public ActionResult Create()
     {
+      ViewBag.SpecialtyId = new SelectList(_db.Specialties, "SpecialtyId", "SpecialtyName");
+      ViewBag.PatientId = new SelectList(_db.Patients, "PatientId", "PatientName");
       return View();
     }
+
     [HttpPost]
-    public ActionResult Create(Doctor doctor)
+    public ActionResult Create(Doctor doctor, int SpecialtyId)
     {
       _db.Doctors.Add(doctor);
+      if (SpecialtyId != 0)
+      {
+        _db.DoctorPatientSpecialties.Add(new DoctorPatientSpecialty(){
+          SpecialtyId = SpecialtyId, DoctorId = doctor.DoctorId });
+      }
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
     public ActionResult Details(int id)
     {
       var thisDoctor = _db.Doctors
-      .Include(doctor => doctor.Patients)
-      .ThenInclude(join => join.Patient)
-      .FirstOrDefault(doctor => doctor.DoctorId == id);
+        .Include(doctor => doctor.JoinEntries)
+        .ThenInclude(join => join.Patient)
+        .FirstOrDefault(doctor => doctor.DoctorId == id);
       return View(thisDoctor);
     }
     public ActionResult Edit(int id)

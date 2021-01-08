@@ -23,7 +23,7 @@ namespace Office.Controllers
 
     public ActionResult Create()
     {
-      ViewBag.DoctorId = new SelectList(_db.Doctors, "DoctorId", "DoctorName", "DoctorSpecialty");
+      ViewBag.DoctorId = new SelectList(_db.Doctors, "DoctorId", "DoctorName");
       return View();
     }
 
@@ -43,7 +43,7 @@ namespace Office.Controllers
     public ActionResult Details(int id)
     {
       var thisPatient = _db.Patients
-        .Include(patient => patient.Doctors)
+        .Include(patient => patient.JoinEntries)
         .ThenInclude(join => join.Doctor)
         .FirstOrDefault(patient => patient.PatientId == id);
       return View(thisPatient);

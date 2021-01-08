@@ -8,7 +8,7 @@
 <hr />
 <h3>@Html.DisplayNameFor(model => model.PatientName): @Html.DisplayFor(model => model.PatientName)</h3>
 <h3>@Html.DisplayNameFor(model => model.DOB): @Html.DisplayFor(model => model.DOB)</h3>
-  @if(@Model.Doctors.Count == 0)
+  @if(@Model.JoinEntries.Count == 0)
   {
   <p>This Patient is not enrolled for any Doctors</p>
   }
@@ -16,7 +16,7 @@
   {
     <h4>Doctors the Patient is enrolled in:</h4>
     <ul>
-    @foreach(var join in Model.Doctors)
+    @foreach(var join in Model.JoinEntries)
     {
       <li>@join.Doctor.DoctorName</li>
     }
@@ -24,7 +24,7 @@
   }
 
   <ul>
-  @foreach(var join in Model.Doctors)
+  @foreach(var join in Model.JoinEntries)
   {
     <li>@join.Doctor.DoctorName</li>
     @using (Html.BeginForm("DeleteDoctor", "Patients"))

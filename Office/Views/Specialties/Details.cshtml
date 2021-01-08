@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Office.Models.Specialty;
+
+<h2>Specialty Details</h2>
+<hr />
+<h3>Specialty Field: @Html.DisplayFor(model => model.SpecialtyName)</h3>
+
+@if(@Model.JoinEntries.Count == 0)
+{
+  <p>No Doctors are assigned to this specialty.</p>
+}
+else
+{
+  <h4><u>Doctors in @Html.DisplayFor(model => model.SpecialtyName)</u></h4>
+  <ul>
+    @foreach(var join in Model.JoinEntries)
+    {
+      <li>@Html.ActionLink(@join.Doctor.DoctorName, "Details", "Doctors", new { id = join.DoctorId })</li>
+    }
+  </ul>  
+}
+<p>@Html.ActionLink("Edit Specialty Information", "Edit", new { id = Model.SpecialtyId });
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

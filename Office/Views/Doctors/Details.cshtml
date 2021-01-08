@@ -1,25 +1,27 @@
 @{
   Layout = "_Layout";
 }
+@using Office.Models
 @model Office.Models.Doctor;
 
 <h2>Doctor Overview</h2>
 <hr />
-<h3>Doctor: @Html.DisplayFor(model => model.DoctorName)</h3>
-<h3>Specialty: @Html.DisplayFor(model => model.DoctorSpecialty)</h3>
+<h3>Doctor: @Html.DisplayNameFor(model => model.DoctorName): @Html.DisplayFor(model => model.DoctorName)</h3>
+@* <h3>Specialty: @Html.Label("SpecialtyName")</h3> *@
 
-@if(@Model.Patients.Count == 0)
+@if(@Model.JoinEntries.Count == 0)
 {
   <p>This Doctor is currently not assigned to any patients.</p>
 }
 else
 {
-  <h4><u>Assigned Patients; Doctor @Html.DisplayFor(model => model.DoctorName)</u></h4>
+  <h4><u>Assigned Patients for Doctor @Html.DisplayFor(model => model.DoctorName)</u></h4>
   <ul>
-    @foreach(var join in Model.Patients)
+    @foreach(var join in Model.JoinEntries)
     {
       <li>@join.Patient.PatientName</li>
     }
   </ul>  
 }
 <p>@Html.ActionLink("Edit Doctor Information", "Edit", new { id = Model.DoctorId })
+<p>@Html.ActionLink("Delete Doctor", "Delete", new { id = Model.DoctorId })</p>

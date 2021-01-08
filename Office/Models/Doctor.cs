@@ -7,16 +7,11 @@ namespace Office.Models
   {
     public Doctor()
     {
-      // this.Patients = new HashSet<DoctorPatient>();
-      this.Patients = new HashSet<DoctorPatientSpecialty>();
-      this.Specialties = new HashSet<DoctorPatientSpecialty>();
+      this.JoinEntries = new HashSet<DoctorPatientSpecialty>();
     }
     public int DoctorId { get; set; }
     public string DoctorName { get; set; }
-    public string DoctorSpecialty { get; set; }
 
-    // public virtual ICollection<DoctorPatient> Patients { get; set; }
-    public ICollection<DoctorPatientSpecialty> Patients { get; set; }
-    public ICollection<DoctorPatientSpecialty> Specialties { get; set; }
+    public ICollection<DoctorPatientSpecialty> JoinEntries { get; set; }
   }
 }

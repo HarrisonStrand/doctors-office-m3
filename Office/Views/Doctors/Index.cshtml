@@ -15,12 +15,11 @@
 @foreach (Doctor doctor in Model)
 {
   <li>@Html.ActionLink($"{doctor.DoctorName}", "Details", new { id = doctor.DoctorId })</li>
-  //<li>@Html.DisplayFor(model => model.DoctorSpecialty)</li>
   @using (Html.BeginForm("Delete", "Doctors", FormMethod.Get))
   {
     @Html.Hidden("id", @doctor.DoctorId)
     <input type="submit" value="Remove Doctor" class="btn btn-default"/>
   }
 }
-<br><p>@Html.ActionLink("Add a new Hire", "Create")</p>
+<br><p>@Html.ActionLink("Add a new Hire", "Create", "Doctors")</p>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>
